@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
@@ -29,7 +28,6 @@ class AdminSeeder extends Seeder
         $user->current_team_id = $adminTeam->id;
         $user->save();
         $adminTeam->users()->attach($user->id, ['role' => 'admin']);
-
 
         $user = new User();
         $user->name = env('ADMIN_TWO');

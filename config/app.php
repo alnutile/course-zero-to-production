@@ -31,8 +31,8 @@ return [
     'env' => env('APP_ENV', 'production'),
 
     'admins' => [
-      env("ADMIN_ONE"),
-      env("ADMIN_TWO"),
+        env('ADMIN_ONE'),
+        env('ADMIN_TWO'),
     ],
 
     /*
