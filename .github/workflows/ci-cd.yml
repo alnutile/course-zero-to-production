@@ -65,6 +65,10 @@ jobs:
       - name: Clear Config
         run: php artisan config:clear
 
+      - name: PHP Stan
+        run: |
+          composer stan
+
       - name: PHP Code Style (phpcs)
         run: |
           composer fix
