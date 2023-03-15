@@ -22,12 +22,11 @@ class BookTest extends TestCase
         $user = User::factory()->create();
 
         $book = Book::factory()->create([
-            'owner_id' => $user->id
+            'owner_id' => $user->id,
         ]);
 
         $this->assertCount(1, $user->books);
 
         $this->assertEquals($user->id, $book->owner->id);
-
     }
 }

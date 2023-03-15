@@ -9,7 +9,8 @@ class Book extends Model
 {
     use HasFactory;
 
-    public function owner() {
+    public function owner()
+    {
         return $this->belongsTo(User::class, 'owner_id');
     }
 }

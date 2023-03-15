@@ -58,8 +58,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-
-    public function books() {
+    public function books()
+    {
         return $this->hasMany(Book::class, 'owner_id');
     }
 }
