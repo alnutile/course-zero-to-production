@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+
+    public function owner() {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
 }

@@ -21,7 +21,7 @@ class BookFactory extends Factory
             'title' => $this->faker->sentences(3, true),
             'completed_at' => now(),
             'isbn' => $this->faker->isbn13(),
-            'user_id' => User::factory(),
+            'owner_id' => User::factory(),
         ];
     }
 }
