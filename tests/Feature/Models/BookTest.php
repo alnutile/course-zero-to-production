@@ -30,16 +30,18 @@ class BookTest extends TestCase
         $this->assertEquals($user->id, $book->owner->id);
     }
 
-    public function test_book_image_path() {
+    public function test_book_image_path()
+    {
         $book = Book::factory()->create([
-            'title' => "aBCD BOOK"
+            'title' => 'aBCD BOOK',
         ]);
         $path = 'https://ui-avatars.com/api/?name=A&color=7F9CF5&background=EBF4FF';
 
         $this->assertEquals($path, $book->book_image_path);
     }
 
-    public function test_cover_image_field() {
-        $this->markTestSkipped("@TODO");
+    public function test_cover_image_field()
+    {
+        $this->markTestSkipped('@TODO');
     }
 }

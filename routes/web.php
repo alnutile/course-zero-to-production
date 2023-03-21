@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BookController;
-use App\Models\Book;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,13 +30,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get("/books", [BookController::class, 'index'])
-        ->name("books.index");
-
-
+    Route::get('/books', [BookController::class, 'index'])
+        ->name('books.index');
 });

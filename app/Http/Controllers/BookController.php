@@ -12,8 +12,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        return inertia("Books/Index", [
-            'books' => Book::get()
+        return inertia('Books/Index', [
+            'books' => Book::get(),
         ]);
     }
 

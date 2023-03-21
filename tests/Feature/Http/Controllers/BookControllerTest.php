@@ -3,17 +3,13 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use Inertia\Testing\AssertableInertia as Assert;
+use Tests\TestCase;
 
 class BookControllerTest extends TestCase
 {
-
-
-    public function test_index() {
+    public function test_index()
+    {
         //setup
         $user = User::factory()->create();
 
@@ -26,7 +22,8 @@ class BookControllerTest extends TestCase
         //assert
     }
 
-    public function test_only_owners_see_their_books() {
-        $this->markTestSkipped("@TODO");
+    public function test_only_owners_see_their_books()
+    {
+        $this->markTestSkipped('@TODO');
     }
 }
