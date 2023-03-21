@@ -32,9 +32,9 @@ class BookTest extends TestCase
 
     public function test_book_image_path() {
         $book = Book::factory()->create([
-            'title' => "ABCD BOOK"
+            'title' => "aBCD BOOK"
         ]);
-        $path = 'https://ui-avatars.com/api/?name=a&color=7F9CF5&background=EBF4FF';
+        $path = 'https://ui-avatars.com/api/?name=A&color=7F9CF5&background=EBF4FF';
 
         $this->assertEquals($path, $book->book_image_path);
     }

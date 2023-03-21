@@ -12,7 +12,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="card card-side bg-base-100 shadow-xl" v-for="book in books" :key="book.id">
                         <figure>
-                            <img src="/images/stock/photo-1635805737707-575885ab0820.jpg" alt="Movie"/>
+                            <img :src="book.book_image_path" :alt="book.title"/>
                         </figure>
                         <div class="card-body">
                             <h2 class="card-title">{{ book.title }}</h2>
