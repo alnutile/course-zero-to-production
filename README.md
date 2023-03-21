@@ -22,3 +22,9 @@ ADMIN_TWO_PASSWORD=makeagoodone
 ```bash 
 php artisan migrate --seed
 ```
+
+### Other seeding options
+
+```bash 
+php artisan db:seed --class=BooksSeeder
+```

@@ -13,4 +13,13 @@ class Book extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+    /**
+     * get BookImagePath Attribute
+     * book_image_path
+     */
+    public function getBookImagePathAttribute() {
+
+        return "https://ui-avatars.com/api/?name=a&color=7F9CF5&background=EBF4FF";
+    }
 }
