@@ -22,7 +22,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Books/Create', [
+            'book' => new Book(),
+        ]);
     }
 
     /**
@@ -30,7 +32,17 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+           'title' => "required",
+           'isbn' => "nullable",
+           'owner_id' => "nullable",
+        ]);
+
+        $validate['owner_id'] = auth()->user()->id;
+
+        Book::create($validate);
+        $request->session()->flash('flash.banner', 'Book Created');
+        return to_route("books.index");
     }
 
     /**

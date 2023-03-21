@@ -1,8 +1,10 @@
 <template>
     <AppLayout title="Your Books">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex justify-between">
                 Your Books
+
+                <Link :href="route('books.create')" class="underline">create</Link>
             </h2>
         </template>
 
@@ -11,14 +13,13 @@
             <div class="text-white max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-2 gap-4">
                     <div class="card card-side bg-base-100 shadow-xl" v-for="book in books" :key="book.id">
-                        <figure>
+                        <figure class="p-2">
                             <img :src="book.book_image_path" :alt="book.title"/>
                         </figure>
                         <div class="card-body">
                             <h2 class="card-title">{{ book.title }}</h2>
-                            <p>Click the button to watch on Jetflix app.</p>
                             <div class="card-actions justify-end">
-                                <button class="btn btn-primary">Watch</button>
+                                <button class="btn btn-primary">View</button>
                             </div>
                         </div>
                     </div>
@@ -31,7 +32,7 @@
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-
+import { Link } from "@inertiajs/vue3"
 defineProps({
     books: Object
 })

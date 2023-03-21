@@ -71,7 +71,7 @@ jobs:
 
       - name: PHP Code Style (phpcs)
         run: |
-          composer fix
+          ./vendor/bin/pint --test
 
       - name: Migrations
         run: |

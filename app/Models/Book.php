@@ -15,6 +15,8 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $appends = [
         'book_image_path',
     ];
