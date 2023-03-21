@@ -22,8 +22,8 @@ class BookControllerTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->component('Books/Index')
-                ->has("books")
-                ->has("books", 2)
+                ->has('books')
+                ->has('books', 2)
             );
     }
 
@@ -41,31 +41,33 @@ class BookControllerTest extends TestCase
         //assert
     }
 
-    public function test_create_book() {
+    public function test_create_book()
+    {
         $user = User::factory()->create();
 
         //act
-        $this->assertDatabaseCount("books", 0);
+        $this->assertDatabaseCount('books', 0);
         $this->actingAs($user)
             ->post(route('books.store'), [
-                'title' => "test",
+                'title' => 'test',
                 'isbn' => 12345,
-                'owner_id' => $user->id
+                'owner_id' => $user->id,
             ]);
-        $this->assertDatabaseCount("books", 1);
+        $this->assertDatabaseCount('books', 1);
     }
 
-    public function test_create_book_and_adds_owner_id() {
+    public function test_create_book_and_adds_owner_id()
+    {
         $user = User::factory()->create();
 
         //act
-        $this->assertDatabaseCount("books", 0);
+        $this->assertDatabaseCount('books', 0);
         $this->actingAs($user)
             ->post(route('books.store'), [
-                'title' => "test",
-                'isbn' => 12345
+                'title' => 'test',
+                'isbn' => 12345,
             ]);
-        $this->assertDatabaseCount("books", 1);
+        $this->assertDatabaseCount('books', 1);
     }
 
     public function test_only_owners_see_their_books()
