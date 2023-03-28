@@ -7,7 +7,14 @@
 
 
 ## Setup
-Copy .env.example to .env
+Setup .env
+
+```bash 
+cp .env.example .env
+composer install
+npm install
+npm run dev
+```
 
 You can update your .env to have a password for admins
 
