@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,11 +21,26 @@ class Book extends Model
 
     protected $appends = [
         'book_image_path',
+        'completed_at_formatted',
+    ];
+
+    protected $casts = [
+        'completed_at' => 'datetime'
     ];
 
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+
+    protected function completedAtFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: function(mixed $value, array $attributes) {
+                return Carbon::parse($attributes['completed_at'])->toFormattedDateString();
+            }
+        );
     }
 
     /**

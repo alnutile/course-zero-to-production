@@ -6,6 +6,19 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
+
+import Toast, { TYPE }  from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
+const toastOptions = {
+    toastDefaults: {
+        // ToastOptions object for each type of toast
+        [TYPE.DEFAULT]: {
+            timeout: 3000,
+            hideProgressBar: true,
+        }
+    }
+};
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Books';
 
 createInertiaApp({
@@ -15,6 +28,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .use(Toast, toastOptions)
             .mount(el);
     },
     progress: {

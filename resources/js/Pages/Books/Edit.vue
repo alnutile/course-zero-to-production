@@ -38,6 +38,10 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButtonLink from '@/Components/SecondaryButtonLink.vue';
 import { useForm, Link } from "@inertiajs/vue3";
 import ResourceForm from "./Partials/ResourceForm.vue";
+import {useToast} from "vue-toastification";
+
+const toast = useToast();
+
 
 const props = defineProps({
     book: Object
@@ -52,9 +56,15 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('books.store'), {
-        preserveScroll: true,
+    form.put(route('books.update', {
+        book: props.book.id
+    }), {
+        preserveScroll: false,
+        onSuccess: params => {
+          toast("Book updated")
+        },
         onError: params => {
+            toast.error("Error saving data")
             console.log("Error")
         }
     })

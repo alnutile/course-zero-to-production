@@ -35,7 +35,7 @@
                         {{ book.isbn }}</li>
                     <li class="flex justify-start gap-2">
                         <Label>Completed At:</Label>
-                        <span v-if="book.completed_at">{{ book.completed_at }}</span><span v-else>not done</span>
+                        <span v-if="book.completed_at">{{ book.completed_at_formatted }}</span><span v-else>not done</span>
                     </li>
                 </ul>
 

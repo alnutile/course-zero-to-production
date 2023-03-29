@@ -90,6 +90,33 @@ class BookControllerTest extends TestCase
         $this->assertDatabaseCount('books', 1);
     }
 
+    public function test_update_book()
+    {
+        $user = User::factory()->create();
+        $book = Book::factory()->create([
+            'title' => "Foobar"
+        ]);
+
+        //act
+        $route = route('books.update', [
+            'book' => $book->id
+        ]);
+
+        $this->actingAs($user)
+            ->put($route, [
+                'title' => 'test',
+                'isbn' => 12345,
+                'owner_id' => $book->owner_id,
+            ])->assertRedirectToRoute(
+                'books.edit', [
+                    'book' => $book->id
+                ]
+            );
+
+        $this->assertEquals("test", $book->refresh()->title);
+        $this->assertEquals("12345", $book->refresh()->isbn);
+    }
+
     public function test_create_book_and_adds_owner_id()
     {
         $user = User::factory()->create();

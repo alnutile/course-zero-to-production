@@ -68,7 +68,20 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required'],
+            'isbn' => ['nullable', 'max:4'],
+            'owner_id' => ['required'],
+            'completed_at' => ['nullable'],
+        ]);
+
+        $book->update($validated);
+
+        $request->session()->flash('flash.banner', 'Book Update');
+
+        return to_route("books.edit", [
+            'book' => $book->id
+        ]);
     }
 
     /**

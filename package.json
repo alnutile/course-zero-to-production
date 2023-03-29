@@ -18,6 +18,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
-        "daisyui": "^2.51.4"
+        "daisyui": "^2.51.4",
+        "vue-toastification": "^2.0.0-rc.5"
     }
 }

@@ -40,8 +40,19 @@ class BookTest extends TestCase
         $this->assertEquals($path, $book->book_image_path);
     }
 
-    public function test_cover_image_field()
-    {
-        $this->markTestSkipped('@TODO');
+    public function test_formated_completedat() {
+        $completed = now();
+        $book = Book::factory()->create(
+            [
+                'completed_at' => $completed
+            ]
+        );
+
+        $this->assertEquals(
+            $completed->toFormattedDateString(),
+            $book->completed_at_formatted
+        );
+
+
     }
 }
