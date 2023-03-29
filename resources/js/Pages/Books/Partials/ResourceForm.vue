@@ -23,6 +23,18 @@
         />
         <InputError class="mt-2" :message="modelValue.errors.isbn" />
     </div>
+
+    <div class="mb-4">
+        <InputLabel for="completed_at" value="Completed At" />
+        <TextInput
+            id="completed_at"
+            v-model="modelValue.completed_at"
+            type="date"
+            class="mt-1 block w-full"
+            autocomplete="off"
+        />
+        <InputError class="mt-2" :message="modelValue.errors.completed_at" />
+    </div>
     <div class="mb-4">
         <InputLabel for="cover_image" value="Cover Image" />
 

@@ -58,6 +58,23 @@ class BookControllerTest extends TestCase
         //assert
     }
 
+    public function test_edit_form()
+    {
+        //setup
+        $user = User::factory()->create();
+        $book = Book::factory()->create();
+
+        //act
+        $this->actingAs($user)
+            ->get(route('books.edit', [
+                'book' => $book->id,
+            ]))
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('Books/Edit'));
+        //assert
+    }
+
     public function test_create_book()
     {
         $user = User::factory()->create();

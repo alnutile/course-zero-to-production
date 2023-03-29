@@ -1,8 +1,8 @@
 <template>
-    <AppLayout title="Create a Book">
+    <AppLayout title="Edit">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Create a Book
+                Edit Book {{ book.title}} #{{book.id}}
             </h2>
         </template>
 
@@ -18,6 +18,8 @@
                     />
 
                     <div class="flex items-center justify-end mt-4">
+                        <SecondaryButtonLink
+                            :href="route('books.show', {book: book.id})">Back</SecondaryButtonLink>
                         <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                             Update
                         </PrimaryButton>
@@ -33,18 +35,20 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import { useForm } from "@inertiajs/vue3";
+import SecondaryButtonLink from '@/Components/SecondaryButtonLink.vue';
+import { useForm, Link } from "@inertiajs/vue3";
 import ResourceForm from "./Partials/ResourceForm.vue";
 
-defineProps({
+const props = defineProps({
     book: Object
 })
 
 const form = useForm({
-    title: null,
-    isbn: null,
-    cover_image: null,
-    owner_id: null,
+    title: props.book.title,
+    isbn: props.book.isbn,
+    cover_image: props.book.book_image_path,
+    owner_id: props.book.owner_id,
+    completed_at: props.book.completed_at,
 });
 
 const submit = () => {
