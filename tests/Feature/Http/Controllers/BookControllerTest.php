@@ -117,6 +117,31 @@ class BookControllerTest extends TestCase
         $this->assertEquals('12345', $book->refresh()->isbn);
     }
 
+    public function test_update_book_and_media()
+    {
+        $user = User::factory()->create();
+        $book = Book::factory()->create([
+            'title' => 'Foobar',
+        ]);
+
+        //act
+        $route = route('books.update', [
+            'book' => $book->id,
+        ]);
+
+        $data = get_fixture("media.json");
+
+        $this->actingAs($user)
+            ->put($route, $data)->assertRedirectToRoute(
+                'books.edit', [
+                    'book' => $book->id,
+                ]
+            );
+
+        $this->assertEquals('Test 2', $book->refresh()->title);
+        $this->assertEquals('8888', $book->refresh()->isbn);
+    }
+
     public function test_create_book_and_adds_owner_id()
     {
         $user = User::factory()->create();

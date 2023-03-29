@@ -17,6 +17,13 @@
                     v-model="form"
                     />
 
+                    <div>
+                        <Uploader
+                            server="/api/books/media/upload"
+                            @change="changeMedia"
+                        />
+                    </div>
+
                     <div class="flex items-center justify-end mt-4">
                         <SecondaryButtonLink
                             :href="route('books.show', {book: book.id})">Back</SecondaryButtonLink>
@@ -33,12 +40,14 @@
 </template>
 
 <script setup>
+import Uploader from 'vue-media-upload'
 import AppLayout from '@/Layouts/AppLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButtonLink from '@/Components/SecondaryButtonLink.vue';
 import { useForm, Link } from "@inertiajs/vue3";
 import ResourceForm from "./Partials/ResourceForm.vue";
 import {useToast} from "vue-toastification";
+import {reactive} from "vue";
 
 const toast = useToast();
 
@@ -53,7 +62,13 @@ const form = useForm({
     cover_image: props.book.book_image_path,
     owner_id: props.book.owner_id,
     completed_at: props.book.completed_at,
+    media: []
 });
+
+const changeMedia = (media) => {
+    console.log(media)
+    form.media = media
+}
 
 const submit = () => {
     form.put(route('books.update', {

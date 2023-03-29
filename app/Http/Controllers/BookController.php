@@ -70,12 +70,13 @@ class BookController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required'],
-            'isbn' => ['nullable', 'max:4'],
+            'isbn' => ['nullable'],
             'owner_id' => ['required'],
             'completed_at' => ['nullable'],
+            'media' => ['nullable'],
         ]);
 
-        $book->update($validated);
+        $book->update($request->except('media'));
 
         $request->session()->flash('flash.banner', 'Book Update');
 

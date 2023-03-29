@@ -6,6 +6,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
+import Uploader from 'vue-media-upload';
 
 import Toast, { TYPE }  from "vue-toastification";
 import "vue-toastification/dist/index.css";
@@ -27,6 +28,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(Uploader)
             .use(ZiggyVue, Ziggy)
             .use(Toast, toastOptions)
             .mount(el);

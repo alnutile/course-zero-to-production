@@ -38,7 +38,6 @@
                         <span v-if="book.completed_at">{{ book.completed_at_formatted }}</span><span v-else>not done</span>
                     </li>
                 </ul>
-
             </div>
         </div>
     </AppLayout>

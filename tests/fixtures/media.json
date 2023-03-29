@@ -1,0 +1,14 @@
+{
+    "title": "Test 2",
+    "isbn": "8888",
+    "owner_id": 1,
+    "completed_at": "2023-03-30T00:00:00.000000Z",
+    "media": [
+        {
+            "url": "blob:http:\/\/course02p.test\/e894879e-e4f7-437b-bd6b-94c7c5d355f9",
+            "name": "6424522f1aeee_simplerecipes.png",
+            "size": 699821,
+            "type": "image\/png"
+        }
+    ]
+}
