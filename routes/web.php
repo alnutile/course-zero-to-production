@@ -42,4 +42,10 @@ Route::middleware([
 
     Route::post('/books/store', [BookController::class, 'store'])
         ->name('books.store');
+
+    Route::get('/books/{book}', [BookController::class, 'show'])
+        ->name("books.show");
+
+    Route::get('/books/{book}/edit', [BookController::class, 'edit'])
+        ->name("books.edit");
 });

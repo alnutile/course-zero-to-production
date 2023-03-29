@@ -19,7 +19,11 @@
                         <div class="card-body">
                             <h2 class="card-title">{{ book.title }}</h2>
                             <div class="card-actions justify-end">
-                                <button class="btn btn-primary">View</button>
+                                <Link
+                                    :href="route('books.show', {
+                                        book: book.id
+                                    })"
+                                    class="btn btn-primary">View</Link>
                             </div>
                         </div>
                     </div>
@@ -33,6 +37,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from "@inertiajs/vue3"
+
 defineProps({
     books: Object
 })

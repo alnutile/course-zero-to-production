@@ -13,7 +13,15 @@ class BookController extends Controller
     public function index()
     {
         return inertia('Books/Index', [
-            'books' => Book::get(),
+            'books' => Book::latest()->get(),
+        ]);
+    }
+
+
+    public function show(Book $book)
+    {
+        return inertia('Books/Show', [
+            'book' => $book->load("owner"),
         ]);
     }
 
@@ -46,20 +54,15 @@ class BookController extends Controller
         return to_route('books.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Book $book)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Book $book)
     {
-        //
+        return inertia('Books/Edit', [
+            'book' => $book,
+        ]);
     }
 
     /**

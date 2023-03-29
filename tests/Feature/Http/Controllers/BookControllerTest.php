@@ -41,6 +41,23 @@ class BookControllerTest extends TestCase
         //assert
     }
 
+    public function test_show_screen()
+    {
+        //setup
+        $user = User::factory()->create();
+        $book = Book::factory()->create();
+
+        //act
+        $this->actingAs($user)
+            ->get(route('books.show', [
+                'book' => $book->id
+            ]))
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('Books/Show'));
+        //assert
+    }
+
     public function test_create_book()
     {
         $user = User::factory()->create();
