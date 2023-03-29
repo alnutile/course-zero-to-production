@@ -50,7 +50,7 @@ class BookControllerTest extends TestCase
         //act
         $this->actingAs($user)
             ->get(route('books.show', [
-                'book' => $book->id
+                'book' => $book->id,
             ]))
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page

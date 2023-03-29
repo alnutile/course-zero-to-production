@@ -17,11 +17,10 @@ class BookController extends Controller
         ]);
     }
 
-
     public function show(Book $book)
     {
         return inertia('Books/Show', [
-            'book' => $book->load("owner"),
+            'book' => $book->load('owner'),
         ]);
     }
 
@@ -53,7 +52,6 @@ class BookController extends Controller
 
         return to_route('books.index');
     }
-
 
     /**
      * Show the form for editing the specified resource.
