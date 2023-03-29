@@ -40,11 +40,12 @@ class BookTest extends TestCase
         $this->assertEquals($path, $book->book_image_path);
     }
 
-    public function test_formated_completedat() {
+    public function test_formated_completedat()
+    {
         $completed = now();
         $book = Book::factory()->create(
             [
-                'completed_at' => $completed
+                'completed_at' => $completed,
             ]
         );
 
@@ -52,7 +53,5 @@ class BookTest extends TestCase
             $completed->toFormattedDateString(),
             $book->completed_at_formatted
         );
-
-
     }
 }

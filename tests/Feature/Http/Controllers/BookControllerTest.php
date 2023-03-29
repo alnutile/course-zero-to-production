@@ -94,12 +94,12 @@ class BookControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $book = Book::factory()->create([
-            'title' => "Foobar"
+            'title' => 'Foobar',
         ]);
 
         //act
         $route = route('books.update', [
-            'book' => $book->id
+            'book' => $book->id,
         ]);
 
         $this->actingAs($user)
@@ -109,12 +109,12 @@ class BookControllerTest extends TestCase
                 'owner_id' => $book->owner_id,
             ])->assertRedirectToRoute(
                 'books.edit', [
-                    'book' => $book->id
+                    'book' => $book->id,
                 ]
             );
 
-        $this->assertEquals("test", $book->refresh()->title);
-        $this->assertEquals("12345", $book->refresh()->isbn);
+        $this->assertEquals('test', $book->refresh()->title);
+        $this->assertEquals('12345', $book->refresh()->isbn);
     }
 
     public function test_create_book_and_adds_owner_id()

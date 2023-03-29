@@ -25,7 +25,7 @@ class Book extends Model
     ];
 
     protected $casts = [
-        'completed_at' => 'datetime'
+        'completed_at' => 'datetime',
     ];
 
     public function owner()
@@ -33,11 +33,10 @@ class Book extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-
     protected function completedAtFormatted(): Attribute
     {
         return Attribute::make(
-            get: function(mixed $value, array $attributes) {
+            get: function (mixed $value, array $attributes) {
                 return Carbon::parse($attributes['completed_at'])->toFormattedDateString();
             }
         );

@@ -79,8 +79,8 @@ class BookController extends Controller
 
         $request->session()->flash('flash.banner', 'Book Update');
 
-        return to_route("books.edit", [
-            'book' => $book->id
+        return to_route('books.edit', [
+            'book' => $book->id,
         ]);
     }
 
