@@ -129,7 +129,7 @@ class BookControllerTest extends TestCase
             'book' => $book->id,
         ]);
 
-        $data = get_fixture("media.json");
+        $data = get_fixture('media.json');
 
         $this->actingAs($user)
             ->put($route, $data)->assertRedirectToRoute(

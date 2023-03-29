@@ -37,9 +37,10 @@ class Book extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                if(!data_get($attributes, 'completed_at')) {
+                if (! data_get($attributes, 'completed_at')) {
                     return null;
                 }
+
                 return Carbon::parse($attributes['completed_at'])->toFormattedDateString();
             }
         );

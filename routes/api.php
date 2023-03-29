@@ -19,9 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::post('/books/media/upload', [
-    ImageController::class, 'store'
-])->name("media.upload");
+    ImageController::class, 'store',
+])->name('media.upload');
 Route::get('/books/media/data/{post}', [ImageController::class, 'getData'])
     ->name('book.media.data');
