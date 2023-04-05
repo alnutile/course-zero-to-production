@@ -11,7 +11,8 @@ class Chapter extends Model
 
     protected $guarded = [];
 
-    public function book() {
+    public function book()
+    {
         return $this->belongsTo(Book::class);
     }
 }

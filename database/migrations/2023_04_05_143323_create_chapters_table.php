@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Book::class);
-            $table->longText("content");
-            $table->integer("number")->nullable();
-            $table->boolean("active")->default(1);
+            $table->longText('content');
+            $table->integer('number')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

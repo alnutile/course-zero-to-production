@@ -31,15 +31,18 @@
                        class="block text-sm font-medium leading-6
                        text-gray-200">Here is the Generated chapter fix it up as needed and save</label>
                 <div class="mt-2">
+                    <InputError
+                    :message="formChapter.errors.content"></InputError>
+
                     <textarea
-                        v-model="formChapter.chapter"
+                        v-model="formChapter.content"
                         rows="25"
                         class="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"></textarea>
                 </div>
             </div>
             <div class="flex mx-auto justify-end mt-4">
                 <PrimaryButton
-                    :disabled="formChapter.chapter === '' || formChapter.processing"
+                    :disabled="formChapter.content === '' || formChapter.processing"
                     type="submit">
                     Save this chapter
                 </PrimaryButton>
@@ -53,6 +56,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import {useToast} from "vue-toastification";
 import {ref} from "vue";
+import InputError from "@/Components/InputError.vue";
 const toast = useToast();
 
 const props = defineProps({
@@ -64,11 +68,23 @@ const form = useForm({
 })
 
 const formChapter = useForm({
-    chapter: null
+    content: null
 })
 
 const saveChapter = () => {
-    console.log("Save this chapter")
+    toast("Saving chapter")
+    formChapter.post(route('chapters.create', {
+        book: props.book.id
+    }), {
+        preserveState: true,
+        onSuccess: params => {
+            toast("Chapter saved")
+        },
+        onError: params => {
+            console.log("errors")
+            toast.error("Oops something went wrong")
+        }
+    });
 }
 
 const submit = () => {
@@ -81,7 +97,7 @@ const submit = () => {
         "context": form.context
     }).then(data => {
         console.log(data.data)
-        formChapter.chapter = data.data.context
+        formChapter.content = data.data.context
         toast("Please review the chapter")
         form.processing = false;
     }).catch(error => {

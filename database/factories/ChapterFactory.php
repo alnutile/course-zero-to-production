@@ -18,10 +18,10 @@ class ChapterFactory extends Factory
     public function definition(): array
     {
         return [
-            "book_id" => Book::factory(),
+            'book_id' => Book::factory(),
             'number' => rand(1, 30),
             'content' => fake()->sentence(20, true),
-            'active' => fake()->boolean()
+            'active' => fake()->boolean(),
         ];
     }
 }

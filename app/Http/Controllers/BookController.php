@@ -20,7 +20,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         return inertia('Books/Show', [
-            'book' => $book->load('owner'),
+            'book' => $book->load('owner', 'chapters'),
         ]);
     }
 
