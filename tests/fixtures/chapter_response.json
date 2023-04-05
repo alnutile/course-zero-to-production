@@ -1,0 +1,19 @@
+{
+    "id": "cmpl-71xqlCN3VKaEP1xAB18fSrHnrXpAX",
+    "object": "text_completion",
+    "created": 1680702747,
+    "model": "text-davinci-003",
+    "choices": [
+        {
+            "text": "\n\nChapter 1: The Journey Begins\n\nThe sun was setting on a beautiful summer day, and the sky was painted in a brilliant array of oranges and pinks. The air was still and the birds were singing their evening songs.\n\nIt was a perfect day for a journey, and that is exactly what our protagonist, a teenage boy, was about to embark on. He had been dreaming of this day for months, and now it was finally here.\n\nHe had decided to learn how to code, and he was determined to make it happen. He had read books, watched tutorials, and asked questions of those who knew more than him. He was ready to take the plunge and start his journey.\n\nHe opened his laptop and began to type. He was filled with a sense of excitement and anticipation as he wrote his first line of code. He was about to embark on a journey that would take him to places he had never been before.\n\nHe was about to learn the secrets of the universe, and he was ready to take on the challenge. He was about to learn the art of coding, and he was ready to make his dreams come true.\n\nHe was about to embark on a journey that would change his life forever. He was about to learn Zen and the Art of Coding.",
+            "index": 0,
+            "logprobs": null,
+            "finishReason": "stop"
+        }
+    ],
+    "usage": {
+        "promptTokens": 57,
+        "completionTokens": 269,
+        "totalTokens": 326
+    }
+}

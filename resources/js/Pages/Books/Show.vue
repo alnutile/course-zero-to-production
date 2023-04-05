@@ -18,8 +18,7 @@
 
         <div class="container mx-auto sm:px-6 lg:px-8 rounded rounded-lg border-gray-600
         bg-gray-800
-        border mt-4
-">
+        border mt-4">
             <div class="text-white max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <h3 class="text-gray-400">Details</h3>
                 <ul>
@@ -40,6 +39,22 @@
                 </ul>
             </div>
         </div>
+
+        <div class="container mx-auto sm:px-6 lg:px-8 rounded rounded-lg border-gray-600
+        bg-gray-800  border mt-4 pb-10">
+            <SectionTitle>
+                <template #title>
+                    Use OpenAI to kickoff a chapter
+                </template>
+                <template #description>
+                    Add your context here about the chapter and we will send it to OpenAI to see what it comes up with.
+                </template>
+            </SectionTitle>
+
+           <ChapterMaker :book="book">
+
+           </ChapterMaker>
+        </div>
     </AppLayout>
 
 </template>
@@ -47,7 +62,9 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Label from "@/Components/Label.vue";
+import ChapterMaker from "./Partials/ChapterMaker.vue";
 import { Link } from "@inertiajs/vue3";
+import SectionTitle from "@/Components/SectionTitle.vue";
 
 
 defineProps({

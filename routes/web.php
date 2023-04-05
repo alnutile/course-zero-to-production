@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ChapterMakerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +34,13 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::controller(ChapterMakerController::class)->group(
+        function() {
+            Route::post('/chapters/{book}/generate', 'getChapterIdea')
+                ->name('chapter.maker.generate.idea');
+        }
+    );
 
     Route::get('/books', [BookController::class, 'index'])
         ->name('books.index');
