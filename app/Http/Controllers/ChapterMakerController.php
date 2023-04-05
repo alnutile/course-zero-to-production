@@ -4,19 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Facades\App\OpenAi\ClientWrapper;
-use Illuminate\Http\Request;
-use OpenAI\Laravel\Facades\OpenAI;
 
 class ChapterMakerController extends Controller
 {
-    public function getChapterIdea(Book $book) {
-
+    public function getChapterIdea(Book $book)
+    {
         $validate = request()->validate([
-            'context' => ['required', "max:1000"]
+            'context' => ['required', 'max:1000'],
         ]);
 
         try {
-            $question = <<<EOD
+            $question = <<<'EOD'
 The book title is %s and the context of the chapter is %s
 EOD;
 
@@ -31,10 +29,10 @@ EOD;
             request()->session()->flash('flash.banner', 'Chapter Generated');
 
             return response()->json([
-                'context' => $context
+                'context' => $context,
             ], 200);
         } catch (\Exception $e) {
-            logger("Error");
+            logger('Error');
             logger($e->getMessage());
 
             return response()->json([], 422);

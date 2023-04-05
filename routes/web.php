@@ -36,7 +36,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::controller(ChapterMakerController::class)->group(
-        function() {
+        function () {
             Route::post('/chapters/{book}/generate', 'getChapterIdea')
                 ->name('chapter.maker.generate.idea');
         }

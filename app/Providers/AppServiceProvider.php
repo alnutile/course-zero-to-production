@@ -3,9 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use OpenAI\Client;
-use OpenAI\Laravel\Exceptions\ApiKeyIsMissing;
-use OpenAI\Laravel\Facades\OpenAI;
 
 class AppServiceProvider extends ServiceProvider
 {
