@@ -64,4 +64,8 @@ class Book extends Model
 
         return $this->cover_image;
     }
+
+    public function chapters() {
+        return $this->hasMany(Chapter::class);
+    }
 }
