@@ -15,4 +15,6 @@ return [
     'api_key' => env('OPENAI_API_KEY'),
     'organization' => env('OPENAI_ORGANIZATION'),
 
+    'mock' => env("OPENAI_MOCK", false)
+
 ];

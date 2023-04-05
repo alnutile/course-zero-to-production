@@ -9,6 +9,11 @@ class ClientWrapper
 
     public function generate($prompt) : string {
 
+        if(config("openai.mock")) {
+            $data = get_fixture("chapter_response.json");
+            return data_get($data, 'choices.0.text');;
+        }
+
         $result = OpenAI::completions()->create([
             'model' => 'text-davinci-003',
             'prompt' => $prompt,
