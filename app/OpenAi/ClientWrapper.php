@@ -10,14 +10,17 @@ class ClientWrapper
 
     protected float $temperature = 0.1;
 
-
-    public function setTemperature(float $temp) {
+    public function setTemperature(float $temp)
+    {
         $this->temperature = $temp;
+
         return $this;
     }
 
-    public function setTokens(int $token) {
+    public function setTokens(int $token)
+    {
         $this->tokens = $token;
+
         return $this;
     }
 
@@ -29,14 +32,12 @@ class ClientWrapper
             return data_get($data, 'choices.0.text');
         }
 
-
         $result = OpenAI::completions()->create([
             'model' => 'text-davinci-003',
             'prompt' => $prompt,
             'max_tokens' => $this->tokens,
             'temperature' => $this->temperature,
         ]);
-
 
         $context = data_get($result, 'choices.0.text');
 

@@ -29,7 +29,8 @@ class ChapterControlerTest extends TestCase
         $this->assertDatabaseCount('chapters', 1);
     }
 
-    public function test_openai_edit() {
+    public function test_openai_edit()
+    {
         ClientWrapper::shouldReceive('setTokens->setTemperature->generate')
             ->once()
             ->andReturn('Some content here');
@@ -39,7 +40,7 @@ class ChapterControlerTest extends TestCase
         //act
         $this->actingAs($user)
             ->post(route('chapters.openai.suggestions', [
-                'chapter' => $chapter->id
+                'chapter' => $chapter->id,
             ]), [
                 'content' => $chapter->content,
             ])->assertStatus(200);

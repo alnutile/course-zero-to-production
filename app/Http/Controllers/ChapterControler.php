@@ -52,8 +52,8 @@ class ChapterControler extends Controller
      */
     public function show(Book $book, Chapter $chapter)
     {
-        return inertia("Chapters/Show", [
-            "chapter"  => $chapter->load('book'),
+        return inertia('Chapters/Show', [
+            'chapter' => $chapter->load('book'),
         ]);
     }
 
@@ -81,9 +81,10 @@ class ChapterControler extends Controller
         //
     }
 
-    public function getEditSuggestions() {
+    public function getEditSuggestions()
+    {
         $validate = request()->validate([
-            'content' => ['required']
+            'content' => ['required'],
         ]);
 
             try {

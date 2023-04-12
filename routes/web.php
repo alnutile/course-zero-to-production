@@ -59,7 +59,7 @@ Route::middleware([
             Route::post('/chapters/{book}/create', 'store')
                 ->name('chapters.create');
 
-            Route::post("/chapters/{chapter}/suggestions", 'getEditSuggestions')
+            Route::post('/chapters/{chapter}/suggestions', 'getEditSuggestions')
                 ->name('chapters.openai.suggestions');
         }
     );
@@ -72,7 +72,7 @@ Route::middleware([
     );
 
     Route::controller(ChapterControler::class)->group(
-        function() {
+        function () {
             Route::get('/books/{book}/chapters/{chapter}', 'show')
                 ->name('chapters.show');
         }
