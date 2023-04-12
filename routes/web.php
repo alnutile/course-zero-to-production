@@ -58,6 +58,9 @@ Route::middleware([
         function () {
             Route::post('/chapters/{book}/create', 'store')
                 ->name('chapters.create');
+
+            Route::post("/chapters/{chapter}/suggestions", 'getEditSuggestions')
+                ->name('chapters.openai.suggestions');
         }
     );
 
@@ -65,6 +68,13 @@ Route::middleware([
         function () {
             Route::post('/chapters/{book}/generate', 'getChapterIdea')
                 ->name('chapter.maker.generate.idea');
+        }
+    );
+
+    Route::controller(ChapterControler::class)->group(
+        function() {
+            Route::get('/books/{book}/chapters/{chapter}', 'show')
+                ->name('chapters.show');
         }
     );
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Chapter;
+use Facades\App\OpenAi\ClientWrapper;
 use Illuminate\Http\Request;
 
 class ChapterControler extends Controller
@@ -49,9 +50,11 @@ class ChapterControler extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Chapter $chapter)
+    public function show(Book $book, Chapter $chapter)
     {
-        //
+        return inertia("Chapters/Show", [
+            "chapter"  => $chapter->load('book'),
+        ]);
     }
 
     /**
@@ -76,5 +79,40 @@ class ChapterControler extends Controller
     public function destroy(Chapter $chapter)
     {
         //
+    }
+
+    public function getEditSuggestions() {
+        $validate = request()->validate([
+            'content' => ['required']
+        ]);
+
+            try {
+                $question = <<<'EOD'
+Can you please check for grammar and touch up the style on this chapter:
+%s
+
+##
+
+
+EOD;
+                $prompt = sprintf($question, $validate['content']);
+
+                $content = ClientWrapper::setTokens(3000)
+                    ->setTemperature(0.7)
+                    ->generate($prompt);
+
+                request()->session()->flash('flash.banner', 'Here are your edits');
+
+                return response()->json([
+                    'edits' => $content,
+                ], 200);
+
+            } catch (\Exception $e) {
+                logger('Error');
+                logger($e->getMessage());
+
+                return response()->json([], 422);
+        }
+
     }
 }
