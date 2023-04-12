@@ -13,7 +13,7 @@
         "laravel/jetstream": "^3.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "openai-php/laravel": "^0.4.0",
+        "openai-php/laravel": "v0.4.1",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
@@ -52,9 +52,6 @@
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
         ],
         "fix": "vendor/bin/pint",
         "stan": "vendor/bin/phpstan analyse --memory-limit 2G"

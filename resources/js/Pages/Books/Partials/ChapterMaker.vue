@@ -82,6 +82,7 @@ const saveChapter = () => {
         },
         onError: params => {
             console.log("errors")
+            console.log(params)
             toast.error("Oops something went wrong")
         }
     });
