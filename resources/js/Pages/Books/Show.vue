@@ -19,24 +19,22 @@
         <div class="container mx-auto sm:px-6 lg:px-8  border-gray-600
         bg-gray-800
         border mt-4">
-            <div class="text-white max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                <h3 class="text-gray-400">Details</h3>
-                <ul>
-                    <li class="flex justify-start gap-2">
-                        <Label>ID:</Label>
-                        {{ book.id }}
-                    </li>
-                    <li class="flex justify-start gap-2">
-                        <Label>Owner:</Label>
-                        {{ book.owner.name }}</li>
-                    <li class="flex justify-start gap-2">
-                        <Label>ISBN:</Label>
-                        {{ book.isbn }}</li>
-                    <li class="flex justify-start gap-2">
-                        <Label>Completed At:</Label>
-                        <span v-if="book.completed_at">{{ book.completed_at_formatted }}</span><span v-else>not done</span>
-                    </li>
-                </ul>
+            <div class="text-white max-w-7xl
+            mx-auto py-10 sm:px-6 lg:px-8
+            grid grid-cols-2 gap-2
+            ">
+                <div>
+                    <h3 class="text-gray-400">Details</h3>
+                    <BookDetails :book="book"/>
+                </div>
+                <div>
+                    <h3 class="text-gray-400">Chapters</h3>
+                    <ul>
+                        <li v-for="chapter in book.chapters" :key="chapter.id" class="truncate">
+                            #{{ chapter.number }} - {{ chapter.content }}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -61,7 +59,7 @@
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Label from "@/Components/Label.vue";
+import BookDetails from "./Partials/BookDetails.vue";
 import ChapterMaker from "./Partials/ChapterMaker.vue";
 import { Link } from "@inertiajs/vue3";
 import SectionTitle from "@/Components/SectionTitle.vue";

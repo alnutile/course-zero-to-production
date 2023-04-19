@@ -51,4 +51,47 @@ class ChapterMakingRepositoryTest extends TestCase
 
         $this->assertNotNull($results);
     }
+
+    public function test_can_use_suggestion()
+    {
+        $chapter = File::get(base_path('tests/fixtures/example_chapter.txt'));
+        ClientWrapper::shouldReceive('generateTldr')
+            ->times(3)
+            ->andReturns($chapter);
+
+        ClientWrapper::shouldReceive('completions')
+            ->once()
+            ->withArgs(function($args) {
+                return str($args)->contains("Foo bar");
+            })
+            ->andReturns($chapter);
+        $book = Book::factory()->create();
+
+        Chapter::factory()->count(2)->create([
+            'book_id' => $book,
+        ]);
+
+        $results = ChapterMakingRepository::handle($book, "Foo bar");
+
+        $this->assertNotNull($results);
+    }
+
+    public function test_no_chapters()
+    {
+        $chapter = File::get(base_path('tests/fixtures/example_chapter.txt'));
+        ClientWrapper::shouldReceive('generateTldr')
+            ->never();
+
+        ClientWrapper::shouldReceive('completions')
+            ->once()
+            ->withArgs(function($args) {
+                return str($args)->contains("Foo bar");
+            })
+            ->andReturns($chapter);
+        $book = Book::factory()->create();
+
+        $results = ChapterMakingRepository::handle($book, "Foo bar");
+
+        $this->assertNotNull($results);
+    }
 }

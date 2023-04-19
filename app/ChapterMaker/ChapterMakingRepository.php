@@ -12,11 +12,37 @@ class ChapterMakingRepository
 
     protected string $finalTldrOfExistingChapters = '';
 
-    public function handle(Book $book): string
+    protected string $suggestion = "";
+
+    protected Book $book;
+
+    public function handle(Book $book, string $suggestion = ""): string
+    {
+        $this->book = $book;
+        $this->suggestion = $suggestion;
+
+        if(count($this->book->chapters) > 0) {
+            $prompt = $this->getPromptForBookWithChapters();
+        } else {
+            $question = <<<'EOD'
+The book title is %s and the author would like you to consider %s.
+So as an helpful assistant can you please write the a chapter.
+EOD;
+            $prompt = sprintf($question,
+                $this->book->title,
+                $this->suggestion,
+            );
+        }
+
+
+
+        return ClientWrapper::completions($prompt);
+    }
+
+    private function getPromptForBookWithChapters()
     {
 
-        /** @phpstan-ignore-next-line */
-        foreach ($book->chapters as $chapter) {
+        foreach ($this->book->chapters as $chapter) {
             /** @var Chapter $chapter */
             $this->tldrs_of_chapters[] = ClientWrapper::generateTldr($chapter->content);
         }
@@ -24,18 +50,31 @@ class ChapterMakingRepository
         $finalTldr = implode("\n", $this->tldrs_of_chapters);
         $this->finalTldrOfExistingChapters = ClientWrapper::generateTldr($finalTldr);
 
-        /** WHAT IS THE SIZE BREAK IT DOWN MORE DEFAULTS 1000 */
+
         $question = <<<'EOD'
-The book title is %s and the context of the chapters prior to this one is %s
+The book title is %s and the context of the chapters prior to this one is %s.
+%s
 as a helpful assistant can you please write the next chapter using the same style
 as the tldrs of the ones included.
 EOD;
 
         $prompt = sprintf($question,
-            $book->title,
+            $this->book->title,
+            $this->getSuggestionAsPartOfPrompt(),
             $this->finalTldrOfExistingChapters,
         );
 
-        return ClientWrapper::completions($prompt);
+        return $prompt;
     }
+
+    private function getSuggestionAsPartOfPrompt() : string
+    {
+        if(!$this->suggestion) {
+            return $this->suggestion;
+        }
+
+        return sprintf("The author would like you to consider %s.", $this->suggestion);
+    }
+
+
 }

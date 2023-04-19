@@ -23,7 +23,6 @@ EOD;
                 $validate['context'],
             );
 
-            //ask the API for response
             $context = ClientWrapper::completions($prompt);
 
             request()->session()->flash('flash.banner', 'Chapter Generated');
