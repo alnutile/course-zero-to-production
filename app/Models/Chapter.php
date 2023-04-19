@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $book_id
  * @property Book $book
+ * @property string $content
  */
 class Chapter extends Model
 {

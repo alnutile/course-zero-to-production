@@ -91,7 +91,7 @@ EOD;
         }
 
         $result = OpenAI::completions()->create([
-            'model' => 'gpt-3.5-turbo',
+            'model' => 'text-davinci-003',
             'prompt' => $prompt,
             'max_tokens' => $this->tokens,
             'temperature' => $this->temperature,

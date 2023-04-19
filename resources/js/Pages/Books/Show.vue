@@ -16,7 +16,7 @@
         </template>
 
 
-        <div class="container mx-auto sm:px-6 lg:px-8 rounded rounded-lg border-gray-600
+        <div class="container mx-auto sm:px-6 lg:px-8  border-gray-600
         bg-gray-800
         border mt-4">
             <div class="text-white max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -40,8 +40,8 @@
             </div>
         </div>
 
-        <div class="container mx-auto sm:px-6 lg:px-8 rounded rounded-lg border-gray-600
-        bg-gray-800  border mt-4 pb-10">
+        <div class="container mx-auto sm:px-6 lg:px-8 border-gray-600
+        bg-gray-800  border mt-4 pb-10 sm:py-4">
             <SectionTitle>
                 <template #title>
                     Use OpenAI to kickoff a chapter

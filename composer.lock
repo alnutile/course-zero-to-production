@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6071795dde9b8acf87a2e96c65fdb25",
+    "content-hash": "f6ecd9ccb8f7ee14a01e79c32b93b213",
     "packages": [
         {
             "name": "alnutile/fixtures",
