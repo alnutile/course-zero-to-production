@@ -82,7 +82,7 @@ EOD;
         return $content;
     }
 
-    public function generate($prompt): string
+    public function completions($prompt): string
     {
         if (config('openai.mock')) {
             $data = get_fixture('chapter_response.json');

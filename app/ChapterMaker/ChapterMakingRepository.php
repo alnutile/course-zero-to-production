@@ -11,18 +11,30 @@ class ChapterMakingRepository
 
     protected array $tldrs_of_chapters = [];
 
-    public function handle(Book $book) {
-        /**
-         * iterate over chapters
-         * get TLDR for each and store in class
-         * then send final array to get TLDR of all
-         * then send that to get idea
-         */
+    protected string $finalTldrOfExistingChapters = "";
+
+    public function handle(Book $book) : string {
+
         foreach($book->chapters as $chapter) {
             /** @var Chapter $chapter */
             $this->tldrs_of_chapters[] = ClientWrapper::generateTldr($chapter->content);
         }
 
-        return true;
+        $finalTldr = implode("\n", $this->tldrs_of_chapters);
+        $this->finalTldrOfExistingChapters = ClientWrapper::generateTldr($finalTldr);
+
+        /** WHAT IS THE SIZE BREAK IT DOWN MORE DEFAULTS 1000 */
+        $question = <<<'EOD'
+The book title is %s and the context of the chapters prior to this one is %s
+as a helpful assistant can you please write the next chapter using the same style
+as the tldrs of the ones included.
+EOD;
+
+        $prompt = sprintf($question,
+            $book->title,
+            $this->finalTldrOfExistingChapters,
+        );
+
+        return ClientWrapper::completions($prompt);
     }
 }
