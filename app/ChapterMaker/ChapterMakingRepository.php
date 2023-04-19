@@ -12,16 +12,16 @@ class ChapterMakingRepository
 
     protected string $finalTldrOfExistingChapters = '';
 
-    protected string $suggestion = "";
+    protected string $suggestion = '';
 
     protected Book $book;
 
-    public function handle(Book $book, string $suggestion = ""): string
+    public function handle(Book $book, string $suggestion = ''): string
     {
         $this->book = $book;
         $this->suggestion = $suggestion;
 
-        if(count($this->book->chapters) > 0) {
+        if (count($this->book->chapters) > 0) {
             $prompt = $this->getPromptForBookWithChapters();
         } else {
             $question = <<<'EOD'
@@ -33,8 +33,6 @@ EOD;
                 $this->suggestion,
             );
         }
-
-
 
         return ClientWrapper::completions($prompt);
     }
@@ -49,7 +47,6 @@ EOD;
 
         $finalTldr = implode("\n", $this->tldrs_of_chapters);
         $this->finalTldrOfExistingChapters = ClientWrapper::generateTldr($finalTldr);
-
 
         $question = <<<'EOD'
 The book title is %s and the context of the chapters prior to this one is %s.
@@ -67,14 +64,12 @@ EOD;
         return $prompt;
     }
 
-    private function getSuggestionAsPartOfPrompt() : string
+    private function getSuggestionAsPartOfPrompt(): string
     {
-        if(!$this->suggestion) {
+        if (! $this->suggestion) {
             return $this->suggestion;
         }
 
-        return sprintf("The author would like you to consider %s.", $this->suggestion);
+        return sprintf('The author would like you to consider %s.', $this->suggestion);
     }
-
-
 }

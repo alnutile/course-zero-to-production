@@ -61,8 +61,8 @@ class ChapterMakingRepositoryTest extends TestCase
 
         ClientWrapper::shouldReceive('completions')
             ->once()
-            ->withArgs(function($args) {
-                return str($args)->contains("Foo bar");
+            ->withArgs(function ($args) {
+                return str($args)->contains('Foo bar');
             })
             ->andReturns($chapter);
         $book = Book::factory()->create();
@@ -71,7 +71,7 @@ class ChapterMakingRepositoryTest extends TestCase
             'book_id' => $book,
         ]);
 
-        $results = ChapterMakingRepository::handle($book, "Foo bar");
+        $results = ChapterMakingRepository::handle($book, 'Foo bar');
 
         $this->assertNotNull($results);
     }
@@ -84,13 +84,13 @@ class ChapterMakingRepositoryTest extends TestCase
 
         ClientWrapper::shouldReceive('completions')
             ->once()
-            ->withArgs(function($args) {
-                return str($args)->contains("Foo bar");
+            ->withArgs(function ($args) {
+                return str($args)->contains('Foo bar');
             })
             ->andReturns($chapter);
         $book = Book::factory()->create();
 
-        $results = ChapterMakingRepository::handle($book, "Foo bar");
+        $results = ChapterMakingRepository::handle($book, 'Foo bar');
 
         $this->assertNotNull($results);
     }
