@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ChapterControler;
 use App\Http\Controllers\ChapterMakerController;
+use App\Http\Controllers\OpenAiGenerateImageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -70,6 +71,9 @@ Route::middleware([
                 ->name('chapter.maker.generate.idea');
         }
     );
+
+    Route::post("/openai/generate_image", OpenAiGenerateImageController::class)
+        ->name('openai.images');
 
     Route::controller(ChapterControler::class)->group(
         function () {

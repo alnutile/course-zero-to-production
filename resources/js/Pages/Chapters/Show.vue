@@ -37,12 +37,18 @@
                     </div>
                 </div>
 
-                <div class="shrink-0 border-t border-gray-200 px-4 py-6 sm:px-6 lg:w-96 lg:border-l lg:border-t-0 lg:pr-8 xl:pr-6">
+                <div class="
+                flex flex-col gap-2
+                shrink-0 border-t border-gray-200 px-4 py-6 sm:px-6 lg:w-96 lg:border-l lg:border-t-0 lg:pr-8 xl:pr-6">
                    <h2 class="mb-4 text-2xl">Actions</h2>
                         <ChatGptEdit
                             @edits="showEdits"
                         :chapter="chapter"
                         />
+                    <GenerateImage
+                        @image_generated="getImage"
+                        :content="chapter.content"/>
+
                 </div>
             </div>
         </div>
@@ -60,6 +66,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import {useToast} from "vue-toastification";
 const toast = useToast();
 import ChatGptEdit from "./Components/ChatGptEdit.vue"
+import GenerateImage from "@/Components/GenerateImage.vue"
 
 const props = defineProps({
     chapter: Object
@@ -75,6 +82,10 @@ const form = useForm({
 const showEdits = (edits) => {
     toast("Your edits are in place")
     form.content = edits;
+}
+
+const getImage = (image_url) => {
+    console.log(image_url)
 }
 
 const submit = () => {
