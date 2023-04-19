@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Facades\App\ChapterMaker\ChapterMakingRepository;
 use App\Models\Book;
 use Facades\App\OpenAi\ClientWrapper;
 
@@ -14,21 +15,12 @@ class ChapterMakerController extends Controller
         ]);
 
         try {
-            $question = <<<'EOD'
-The book title is %s and the context of the chapter is %s
-EOD;
-
-            $prompt = sprintf($question,
-                $book->title,
-                $validate['context'],
-            );
-
-            $context = ClientWrapper::completions($prompt);
+            $chapterSuggestion = ChapterMakingRepository::handle($book, $validate['context']);
 
             request()->session()->flash('flash.banner', 'Chapter Generated');
 
             return response()->json([
-                'context' => $context,
+                'context' => $chapterSuggestion,
             ], 200);
         } catch (\Exception $e) {
             logger('Error');

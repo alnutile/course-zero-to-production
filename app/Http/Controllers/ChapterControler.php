@@ -37,7 +37,7 @@ class ChapterControler extends Controller
         $chapter = Chapter::create([
             'book_id' => $book->id,
             'content' => $validated['content'],
-            'number' => 1,
+            'number' => count($book->chapters) + 1,
         ]);
 
         request()->session()->flash('flash.banner', 'Chapter Created');

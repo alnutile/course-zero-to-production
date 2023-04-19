@@ -29,6 +29,31 @@ class ChapterControlerTest extends TestCase
         $this->assertDatabaseCount('chapters', 1);
     }
 
+    public function test_make_second_chapter()
+    {
+        $user = User::factory()->create();
+        $book = Book::factory()->create();
+        Chapter::factory()->create([
+            'book_id' => $book->id,
+            'number' => 1
+        ]);
+        $this->actingAs($user)
+            ->post(route('chapters.create', [
+                'book' => $book->id,
+            ]), [
+                'content' => 'Foo bar',
+            ]);
+
+        $this->assertDatabaseCount('chapters', 2);
+
+        $this->assertTrue(
+            Chapter::query()
+                ->where("book_id", $book->id)
+                ->where("number", 2)
+            ->exists()
+        );
+    }
+
     public function test_openai_edit()
     {
         ClientWrapper::shouldReceive('setTokens->setTemperature->generate')

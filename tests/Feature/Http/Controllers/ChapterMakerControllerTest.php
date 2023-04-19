@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use Facades\App\ChapterMaker\ChapterMakingRepository;
 use App\Models\Book;
 use App\Models\User;
 use Facades\App\OpenAi\ClientWrapper;
@@ -19,7 +20,9 @@ class ChapterMakerControllerTest extends TestCase
         ]);
         $user = User::factory()->create();
 
-        ClientWrapper::shouldReceive('completions')->andReturn('Some content here');
+        ChapterMakingRepository::shouldReceive('handle')
+            ->once()
+            ->andReturn("foo");
 
         $this->actingAs($user)
             ->post(route('chapter.maker.generate.idea', [
