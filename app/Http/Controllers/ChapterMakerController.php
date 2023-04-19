@@ -24,7 +24,7 @@ EOD;
             );
 
             //ask the API for response
-            $context = ClientWrapper::generate($prompt);
+            $context = ClientWrapper::completions($prompt);
 
             request()->session()->flash('flash.banner', 'Chapter Generated');
 

@@ -19,7 +19,7 @@ class ChapterMakerControllerTest extends TestCase
         ]);
         $user = User::factory()->create();
 
-        ClientWrapper::shouldReceive('generate')->andReturn('Some content here');
+        ClientWrapper::shouldReceive('completions')->andReturn('Some content here');
 
         $this->actingAs($user)
             ->post(route('chapter.maker.generate.idea', [
