@@ -8,10 +8,9 @@ class ClientWrapper
 {
     protected int $tokens = 2000;
 
-    protected string $size = "512x512";
+    protected string $size = '512x512';
 
     protected float $temperature = 0.1;
-
 
     public function setSize(string $size)
     {
@@ -34,14 +33,15 @@ class ClientWrapper
         return $this;
     }
 
-    public function generateTldr($content) : string {
+    public function generateTldr($content): string
+    {
         if (config('openai.mock')) {
             $data = get_fixture('chapter_response.json');
 
             return data_get($data, 'choices.0.text');
         }
 
-        $prompt = <<<EOD
+        $prompt = <<<'EOD'
 Can you give me a tldr of this content keeping it under 1000 characters
 %s
 
@@ -64,7 +64,8 @@ EOD;
         return $context;
     }
 
-    public function generateImage($prompt) : string {
+    public function generateImage($prompt): string
+    {
         if (config('openai.mock')) {
             $data = get_fixture('image_response.json');
 
@@ -74,7 +75,7 @@ EOD;
         $result = OpenAI::images()->create([
             'prompt' => $prompt,
             'n' => 1,
-            'size' => $this->size
+            'size' => $this->size,
         ]);
 
         $content = data_get($result, 'data.0.url');

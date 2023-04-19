@@ -8,14 +8,15 @@ use Facades\App\OpenAi\ClientWrapper;
 
 class ChapterMakingRepository
 {
-
     protected array $tldrs_of_chapters = [];
 
-    protected string $finalTldrOfExistingChapters = "";
+    protected string $finalTldrOfExistingChapters = '';
 
-    public function handle(Book $book) : string {
+    public function handle(Book $book): string
+    {
 
-        foreach($book->chapters as $chapter) {
+        /** @phpstan-ignore-next-line */
+        foreach ($book->chapters as $chapter) {
             /** @var Chapter $chapter */
             $this->tldrs_of_chapters[] = ClientWrapper::generateTldr($chapter->content);
         }

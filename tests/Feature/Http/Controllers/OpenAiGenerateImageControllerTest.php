@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\Chapter;
 use App\Models\User;
 use Facades\App\OpenAi\ClientWrapper;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class OpenAiGenerateImageControllerTest extends TestCase
@@ -28,7 +26,7 @@ class OpenAiGenerateImageControllerTest extends TestCase
         //act
         $this->actingAs($user)
             ->post(route('openai.images'), [
-                'content' => "foo bar",
+                'content' => 'foo bar',
             ])->assertStatus(200);
     }
 }

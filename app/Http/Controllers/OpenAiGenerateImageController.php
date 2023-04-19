@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Facades\App\OpenAi\ClientWrapper;
-use Illuminate\Http\Request;
 
 class OpenAiGenerateImageController extends Controller
 {
-    public function __invoke() {
+    public function __invoke()
+    {
         $validate = request()->validate([
-           'content' => ['required']
+            'content' => ['required'],
         ]);
 
         $content = ClientWrapper::setTokens(3000)->generateTldr($validate['content']);
@@ -25,7 +25,7 @@ Can you make an image based on the chapter in this chapter genre sci-fi and phot
 EOD;
             $prompt = sprintf($question, $content);
 
-            $image_url = ClientWrapper::setSize("256x256")
+            $image_url = ClientWrapper::setSize('256x256')
                 ->generateImage($prompt);
 
             request()->session()->flash('flash.banner', 'Here is your image');
@@ -40,7 +40,6 @@ EOD;
 
             return response()->json([], 422);
         }
-
 
     }
 }

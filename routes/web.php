@@ -72,7 +72,7 @@ Route::middleware([
         }
     );
 
-    Route::post("/openai/generate_image", OpenAiGenerateImageController::class)
+    Route::post('/openai/generate_image', OpenAiGenerateImageController::class)
         ->name('openai.images');
 
     Route::controller(ChapterControler::class)->group(
