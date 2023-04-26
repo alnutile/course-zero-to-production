@@ -34,7 +34,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return to_route("books.index");
     })->name('dashboard');
 
     Route::get('/books', [BookController::class, 'index'])
