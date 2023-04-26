@@ -9,6 +9,12 @@ class ChapterMakerController extends Controller
 {
     public function getChapterIdea(Book $book)
     {
+
+        //are you a subscriber
+        if (! auth()->user()->subscribed('default')) {
+            return response()->json('You need to subscribe', 429);
+        }
+
         $validate = request()->validate([
             'context' => ['required', 'max:1000'],
         ]);

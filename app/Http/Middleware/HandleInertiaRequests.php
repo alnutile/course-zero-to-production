@@ -34,6 +34,9 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
+            'stripe' => [
+                'public_key' => config('services.cashier.stripe.public_key'),
+            ],
             'feature_flags' => [
 
             ],

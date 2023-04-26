@@ -13,6 +13,11 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'cashier' => [
+        'stripe' => [
+            'public_key' => env('STRIPE_KEY'),
+        ],
+    ],
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),

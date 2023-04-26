@@ -68,7 +68,8 @@ import {useToast} from "vue-toastification";
 const toast = useToast();
 
 const props = defineProps({
-    book: Object
+    book: Object,
+    subscriptions: Array
 })
 
 

@@ -21,6 +21,9 @@ class BookController extends Controller
     {
         return inertia('Books/Show', [
             'book' => $book->load('owner', 'chapters'),
+            'subscriptions' => [
+                'default' => auth()->user()->subscribed('default'),
+            ],
         ]);
     }
 

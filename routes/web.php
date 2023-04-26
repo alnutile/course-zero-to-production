@@ -4,7 +4,9 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\ChapterControler;
 use App\Http\Controllers\ChapterMakerController;
 use App\Http\Controllers\OpenAiGenerateImageController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,13 +28,34 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->get('/subscriptions', [SubscriptionController::class, 'index'])
+    ->name('subscriptions.index');
+
+Route::get('/product-checkout', function (Request $request) {
+    return $request->user()
+        ->newSubscription('default', 'price_1N18h3DtrQsiGw9vifKvdxi9')
+        ->checkout();
+})->name('product.checkout');
+
+Route::post('/subscriptions', [SubscriptionController::class, 'subscribe'])
+    ->name('subscriptions.create');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
+    Route::get('/billing-portal', function (Request $request) {
+        return $request->user()->redirectToBillingPortal(route('books.index'));
+    })->name('billing.portal');
+
     Route::get('/dashboard', function () {
         return to_route('books.index');
     })->name('dashboard');
