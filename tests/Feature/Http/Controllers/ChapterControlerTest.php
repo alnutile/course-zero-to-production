@@ -35,7 +35,7 @@ class ChapterControlerTest extends TestCase
         $book = Book::factory()->create();
         Chapter::factory()->create([
             'book_id' => $book->id,
-            'number' => 1
+            'number' => 1,
         ]);
         $this->actingAs($user)
             ->post(route('chapters.create', [
@@ -48,8 +48,8 @@ class ChapterControlerTest extends TestCase
 
         $this->assertTrue(
             Chapter::query()
-                ->where("book_id", $book->id)
-                ->where("number", 2)
+                ->where('book_id', $book->id)
+                ->where('number', 2)
             ->exists()
         );
     }

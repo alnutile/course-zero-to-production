@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use Facades\App\ChapterMaker\ChapterMakingRepository;
 use App\Models\Book;
 use App\Models\User;
-use Facades\App\OpenAi\ClientWrapper;
+use Facades\App\ChapterMaker\ChapterMakingRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -22,7 +21,7 @@ class ChapterMakerControllerTest extends TestCase
 
         ChapterMakingRepository::shouldReceive('handle')
             ->once()
-            ->andReturn("foo");
+            ->andReturn('foo');
 
         $this->actingAs($user)
             ->post(route('chapter.maker.generate.idea', [

@@ -55,7 +55,7 @@
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import {useToast} from "vue-toastification";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import InputError from "@/Components/InputError.vue";
 const toast = useToast();
 
@@ -70,6 +70,35 @@ const form = useForm({
 const formChapter = useForm({
     content: null
 })
+
+onMounted(() => {
+    Echo.private(`books.${props.book.id}`)
+        .listen('ChapterDownGeneratingEvent', (event) => {
+            toast("Suggestion ready see what you think")
+            formChapter.content = event.suggestedChapter
+            form.processing = false;
+        });
+})
+
+const submit = () => {
+    form.processing = true;
+    toast("Getting chapter inspiration back in a moment")
+
+    axios.post(route('chapter.maker.generate.idea', {
+        book: props.book.id
+    }), {
+        "context": form.context
+    }).then(data => {
+        console.log(data.data)
+        toast("Back in a moment with your results");
+    }).catch(error => {
+        console.log(error)
+        toast.error("Sorry there was an error")
+        form.processing = false;
+    })
+
+}
+
 
 const saveChapter = () => {
     toast("Saving chapter")
@@ -88,26 +117,6 @@ const saveChapter = () => {
     });
 }
 
-const submit = () => {
-    form.processing = true;
-    toast("Getting chapter inspiration back in a moment")
-
-    axios.post(route('chapter.maker.generate.idea', {
-            book: props.book.id
-        }), {
-        "context": form.context
-    }).then(data => {
-        console.log(data.data)
-        formChapter.content = data.data.context
-        toast("Please review the chapter")
-        form.processing = false;
-    }).catch(error => {
-        console.log(error)
-        toast.error("Sorry there was an error")
-        form.processing = false;
-    })
-
-}
 
 </script>
 

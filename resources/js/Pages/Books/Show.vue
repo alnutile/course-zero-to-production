@@ -63,12 +63,13 @@ import BookDetails from "./Partials/BookDetails.vue";
 import ChapterMaker from "./Partials/ChapterMaker.vue";
 import { Link } from "@inertiajs/vue3";
 import SectionTitle from "@/Components/SectionTitle.vue";
+import {onMounted} from "vue";
+import {useToast} from "vue-toastification";
+const toast = useToast();
 
-
-defineProps({
+const props = defineProps({
     book: Object
 })
-
 
 
 

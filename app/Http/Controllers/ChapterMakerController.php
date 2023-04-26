@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Facades\App\ChapterMaker\ChapterMakingRepository;
+use App\Jobs\SendChapterMakerJob;
 use App\Models\Book;
-use Facades\App\OpenAi\ClientWrapper;
 
 class ChapterMakerController extends Controller
 {
@@ -15,12 +14,13 @@ class ChapterMakerController extends Controller
         ]);
 
         try {
-            $chapterSuggestion = ChapterMakingRepository::handle($book, $validate['context']);
 
-            request()->session()->flash('flash.banner', 'Chapter Generated');
+            SendChapterMakerJob::dispatch($book, $validate['context']);
+
+            request()->session()->flash('flash.banner', 'Back in a moment with suggestion');
 
             return response()->json([
-                'context' => $chapterSuggestion,
+                'context' => '',
             ], 200);
         } catch (\Exception $e) {
             logger('Error');
