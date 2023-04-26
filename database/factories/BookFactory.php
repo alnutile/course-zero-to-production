@@ -18,7 +18,8 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->words(3, 1),
+            'title' => str($this->faker->words(3, 1))->title(),
+            'summary' => $this->faker->sentences(3, 1),
             'completed_at' => now(),
             'isbn' => $this->faker->isbn13(),
             'owner_id' => User::factory(),

@@ -15,6 +15,7 @@ class BookTest extends TestCase
     {
         $model = Book::factory()->create();
         $this->assertNotNull($model->title);
+        $this->assertNotNull($model->summary);
     }
 
     public function test_rel()

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $book_image_path
  * @property string $title
+ * @property string $summary
  * @property Collection $chapters
  */
 class Book extends Model
