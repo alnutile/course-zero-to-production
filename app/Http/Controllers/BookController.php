@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,17 @@ class BookController extends Controller
      */
     public function index()
     {
+
         return inertia('Books/Index', [
-            'books' => Book::latest()->get(),
+            'books' => BookResource::collection(Book::latest()->get()),
         ]);
     }
 
     public function show(Book $book)
     {
+
         return inertia('Books/Show', [
-            'book' => $book->load('owner', 'chapters'),
+            'book' => new BookResource($book),
             'subscriptions' => [
                 'default' => auth()->user()->subscribed('default'),
             ],
@@ -32,9 +35,18 @@ class BookController extends Controller
      */
     public function create()
     {
-        return inertia('Books/Create', [
-            'book' => new Book(),
-        ]);
+        try {
+            return inertia('Books/Create', [
+                'book' => new Book(),
+            ]);
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            request()->session()->flash('flash.banner', 'Sorry there was an error');
+            request()->session()->flash('flash.bannerStyle', 'error');
+
+            return back();
+        }
+
     }
 
     /**
@@ -48,12 +60,21 @@ class BookController extends Controller
             'owner_id' => 'nullable',
         ]);
 
-        $validate['owner_id'] = auth()->user()->id;
+        try {
+            $validate['owner_id'] = auth()->user()->id;
+            $book = Book::create($validate);
+            $request->session()->flash('flash.banner', 'Book Created');
 
-        Book::create($validate);
-        $request->session()->flash('flash.banner', 'Book Created');
+            return to_route('books.show', [
+                'book' => $book->id,
+            ]);
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            request()->session()->flash('flash.banner', 'Sorry there was an error');
+            request()->session()->flash('flash.bannerStyle', 'danger');
 
-        return to_route('books.index');
+            return back();
+        }
     }
 
     /**
@@ -61,6 +82,10 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
+        if (request()->user()->cannot('update', $book)) {
+            abort(403);
+        }
+
         return inertia('Books/Edit', [
             'book' => $book,
         ]);
@@ -71,6 +96,10 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        if ($request->user()->cannot('update', $book)) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'title' => ['required'],
             'isbn' => ['nullable'],

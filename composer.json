@@ -37,7 +37,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "vendor/alnutile/fixtures/src/helpers.php"
+            "vendor/alnutile/fixtures/src/helpers.php",
+            "app/helpers.php"
         ]
     },
     "autoload-dev": {

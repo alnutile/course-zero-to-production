@@ -1,11 +1,11 @@
 <template>
-    <AppLayout :title="book.title">
+    <AppLayout :title="book.data.title">
         <template #header>
             <div class="flex mx-auto justify-between items-center">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Book {{ book.title }}
+                    Book {{ book.data.title }}
                 </h2>
-                <Link class="btn-xs" :href="route('books.edit', {book: book.id})">
+                <Link class="btn-xs" :href="route('books.edit', {book: book.data.id})">
                     <svg
                         class="w-4 h-4"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -25,12 +25,12 @@
             ">
                 <div>
                     <h3 class="text-gray-400">Details</h3>
-                    <BookDetails :book="book"/>
+                    <BookDetails :book="book.data"/>
                 </div>
                 <div>
                     <h3 class="text-gray-400">Chapters</h3>
                     <ul>
-                        <li v-for="chapter in book.chapters" :key="chapter.id" class="truncate">
+                        <li v-for="chapter in book.data.chapters" :key="chapter.id" class="truncate">
                             #{{ chapter.number }} - {{ chapter.content }}
                         </li>
                     </ul>
@@ -49,7 +49,7 @@
                 </template>
             </SectionTitle>
 
-           <ChapterMaker :book="book">
+           <ChapterMaker :book="book.data">
 
            </ChapterMaker>
         </div>

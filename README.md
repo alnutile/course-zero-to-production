@@ -35,3 +35,27 @@ php artisan migrate --seed
 ```bash 
 php artisan db:seed --class=BooksSeeder
 ```
+
+
+## Forge Deply
+
+```bash 
+cd /home/forge/books.alfrednutile.info
+git add .
+git stash
+
+git pull origin $FORGE_SITE_BRANCH
+
+npm install 
+npm run build
+
+$FORGE_COMPOSER install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+( flock -w 10 9 || exit 1
+    echo 'Restarting FPM...'; sudo -S service $FORGE_PHP_FPM reload ) 9>/tmp/fpmlock
+
+if [ -f artisan ]; then
+    $FORGE_PHP artisan migrate --force
+fi
+
+```

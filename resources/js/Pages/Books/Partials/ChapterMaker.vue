@@ -6,11 +6,10 @@
                        class="block text-sm font-medium leading-6
                        text-gray-200">Give OpenAI some context</label>
                 <div class="mt-2">
-                    <textarea
+                    <TextAreaInput
                         v-model="form.context"
                         placeholder="Include some context about the chapter like This is a Sci-fi book about Zen and the art of coding."
-                        rows="4"
-                          class="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"></textarea>
+                        :rows="4"></TextAreaInput>
                 </div>
             </div>
             <div class="flex mx-auto justify-end mt-4">
@@ -34,10 +33,9 @@
                     <InputError
                     :message="formChapter.errors.content"></InputError>
 
-                    <textarea
-                        v-model="formChapter.content"
-                        rows="25"
-                        class="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"></textarea>
+                    <TextAreaInput
+                        placeholder="The results will show here 🤖"
+                        v-model="formChapter.content"></TextAreaInput>
                 </div>
             </div>
             <div class="flex mx-auto justify-end mt-4">
@@ -57,6 +55,7 @@ import { useForm } from "@inertiajs/vue3";
 import {useToast} from "vue-toastification";
 import {onMounted, ref} from "vue";
 import InputError from "@/Components/InputError.vue";
+import TextAreaInput from "@/Components/TextAreaInput.vue";
 const toast = useToast();
 
 const props = defineProps({

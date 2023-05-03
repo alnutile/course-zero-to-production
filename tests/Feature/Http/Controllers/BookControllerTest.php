@@ -23,7 +23,7 @@ class BookControllerTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page
                 ->component('Books/Index')
                 ->has('books')
-                ->has('books', 2)
+                ->has('books.data', 2)
             );
     }
 
@@ -58,11 +58,53 @@ class BookControllerTest extends TestCase
         //assert
     }
 
+    public function test_update_book_should_fail()
+    {
+        $hacker = User::factory()->create();
+        $user = User::factory()->create();
+        $book = Book::factory()->create([
+            'owner_id' => $user->id,
+        ]);
+
+        //act
+        $route = route('books.update', [
+            'book' => $book->id,
+        ]);
+
+        $this->actingAs($hacker)
+            ->put($route, [
+                'title' => 'test',
+                'isbn' => 12345,
+                'owner_id' => $book->owner_id,
+            ])->assertStatus(403);
+    }
+
+    public function test_edit_fail_non_owner()
+    {
+        //setup
+        $hacker = User::factory()->create();
+        $user = User::factory()->create();
+        $book = Book::factory()->create([
+            'owner_id' => $user->id,
+        ]);
+
+        //act
+        $this->actingAs($hacker)
+            ->get(route('books.edit', [
+                'book' => $book->id,
+            ]))
+            ->assertStatus(403);
+        //assert
+    }
+
     public function test_edit_form()
     {
         //setup
         $user = User::factory()->create();
-        $book = Book::factory()->create();
+        $user = User::factory()->create();
+        $book = Book::factory()->create([
+            'owner_id' => $user->id,
+        ]);
 
         //act
         $this->actingAs($user)
@@ -94,7 +136,7 @@ class BookControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $book = Book::factory()->create([
-            'title' => 'Foobar',
+            'owner_id' => $user->id,
         ]);
 
         //act
@@ -119,8 +161,10 @@ class BookControllerTest extends TestCase
 
     public function test_update_book_and_media()
     {
+
         $user = User::factory()->create();
         $book = Book::factory()->create([
+            'owner_id' => $user->id,
             'title' => 'Foobar',
         ]);
 

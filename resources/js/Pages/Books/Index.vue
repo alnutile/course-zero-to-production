@@ -10,7 +10,7 @@
 
 
         <div class="max-w-7xl flex mx-auto p-4">
-           <Cards :books="books"/>
+           <Cards :books="books.data"/>
         </div>
     </AppLayout>
 

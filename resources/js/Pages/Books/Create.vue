@@ -35,6 +35,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm } from "@inertiajs/vue3";
 import ResourceForm from "./Partials/ResourceForm.vue";
+import {useToast} from "vue-toastification";
+const toast = useToast();
 
 defineProps({
     book: Object
@@ -52,6 +54,7 @@ const submit = () => {
         preserveScroll: true,
         onError: params => {
             console.log("Error")
+            toast.error("Oh now!")
         }
     })
 }

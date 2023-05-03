@@ -60,23 +60,27 @@ Route::middleware([
         return to_route('books.index');
     })->name('dashboard');
 
-    Route::get('/books', [BookController::class, 'index'])
-        ->name('books.index');
+    Route::controller(BookController::class)->group(
+        function () {
+            Route::get('/books', 'index')
+                ->name('books.index');
 
-    Route::get('/books/create', [BookController::class, 'create'])
-        ->name('books.create');
+            Route::get('/books/create', 'create')
+                ->name('books.create');
 
-    Route::post('/books/store', [BookController::class, 'store'])
-        ->name('books.store');
+            Route::post('/books/store', 'store')
+                ->name('books.store');
 
-    Route::get('/books/{book}', [BookController::class, 'show'])
-        ->name('books.show');
+            Route::get('/books/{book}', 'show')
+                ->name('books.show');
 
-    Route::get('/books/{book}/edit', [BookController::class, 'edit'])
-        ->name('books.edit');
+            Route::get('/books/{book}/edit', 'edit')
+                ->name('books.edit');
 
-    Route::put('/books/{book}', [BookController::class, 'update'])
-        ->name('books.update');
+            Route::put('/books/{book}', 'update')
+                ->name('books.update');
+        }
+    );
 
     Route::controller(ChapterControler::class)->group(
         function () {
